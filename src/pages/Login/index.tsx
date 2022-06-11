@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import AuthContext from "../../contexts/auth";
 
 const Login: React.FC = () => {
-    function handleLogin() {}
+    const context = useContext(AuthContext);
 
+
+    function handleLogin() {
+        context.Login();
+
+    }
 
     return (
         <div>
