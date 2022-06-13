@@ -7,7 +7,6 @@ const SignRoutes: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-
                 <Route path="/" element={<Login />} />
             </Routes>
         </BrowserRouter>

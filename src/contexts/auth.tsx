@@ -1,9 +1,10 @@
-import React, { createContext, ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 import api from "../services/api";
 
 interface AuthContextData {
     signed: boolean;
     Login(): Promise<void>;
+    //token: string | null;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -14,30 +15,32 @@ interface AuthProviderProps {
 
 
 export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState(null);
 
     async function Login() {
-        // const response = await api.post('/auth/login', {
-        //     email: 'neymar@gmail.com',
-        //     password: 'Neymar@1234',
-        // });
-        // if (response) {
-        //     setToken(response.data.access_token);
-        //     console.log(token);
-        // }
-        await api.post('/auth/login', {
-            email: 'neymar@gmail.com',
-            password: 'Neymar@1234',
-        }).then((response) => {
-            setToken(response.data.access_token);
-            console.log(token);
-        })
 
+        try {
+            const response = await api.post('/auth/login', {
+                email: 'neymar@gmail.com',
+                password: 'Neymar@1234',
+            });
+            if (response) {
+                setToken(response.data.access_token);
+                api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
+
+    // useEffect(() => {
+    //     console.log(token);
+    // }, [token])
 
 
     return (
-        <AuthContext.Provider value={{ signed: true, Login }}>
+        <AuthContext.Provider value={{ signed: Boolean(token), Login }}>
             {props.children}
         </AuthContext.Provider>
     )

@@ -1,14 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../contexts/auth";
 
 const Login: React.FC = () => {
     const context = useContext(AuthContext);
 
 
-    function handleLogin() {
-        context.Login();
+
+    async function handleLogin() {
+        await context.Login();
 
     }
+
+
+
 
     return (
         <div>
