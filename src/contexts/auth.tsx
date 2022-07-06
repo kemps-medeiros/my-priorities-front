@@ -4,6 +4,7 @@ import api from "../services/api";
 interface AuthContextData {
     signed: boolean;
     Login(): Promise<void>;
+    Logout(): Promise<void>;
     //token: string | null;
 }
 
@@ -34,13 +35,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
         }
     }
 
-    // useEffect(() => {
-    //     console.log(token);
-    // }, [token])
+    async function Logout() {
+        try {
+            setToken(null);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     return (
-        <AuthContext.Provider value={{ signed: Boolean(token), Login }}>
+        <AuthContext.Provider value={{ signed: Boolean(token), Login, Logout }}>
             {props.children}
         </AuthContext.Provider>
     )
