@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
-import Navbar from "../../components/navbar";
 import AuthContext from "../../contexts/auth";
+
+import Navbar from "../../components/navbar";
+import "./style.css";
 
 const Login: React.FC = () => {
     const context = useContext(AuthContext);
@@ -13,8 +15,10 @@ const Login: React.FC = () => {
     return (
         <div>
             <Navbar />
-            <h1>Login</h1>
-            <button onClick={handleLogin}>Login</button>
+            <div className="container">
+                <h1>Login</h1>
+                <button onClick={handleLogin}>Login</button>
+            </div>
         </div>
     )
 }

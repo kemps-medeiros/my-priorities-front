@@ -11,9 +11,9 @@ const Navbar: React.FC = () => {
                     <div className="nav-wrapper">
                         <a href="#" className="brand-logo">MyPriorities</a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            <li><a href="#">Github</a></li>
-                            <li><a href="#">Portfolio</a></li>
-                            <li><a href="#">Linkedin</a></li>
+                            <li><a target="_blank" href="https://github.com/kemps-medeiros">Github</a></li>
+                            <li><a target="_blank" href="https://kemps-medeiros.github.io/kemps-portfolio/">Portfolio</a></li>
+                            <li><a target="_blank" href="https://www.linkedin.com/in/kempsmedeiros/">Linkedin</a></li>
                         </ul>
                     </div>
                 </div>
