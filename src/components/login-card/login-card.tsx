@@ -22,7 +22,7 @@ const LoginCard: React.FC = () => {
                                 <input type="password" id="password" />
                             </div>
                             <div className="form-field center">
-                                <button className="btn-large green accent-4">Login</button>
+                                <button className="btn-large green accent-4 login">Login</button>
                             </div>
                         </div>
                     </div>
