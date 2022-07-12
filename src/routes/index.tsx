@@ -4,15 +4,10 @@ import AuthContext from "../contexts/auth";
 import SignRoutes from "./SignRoutes";
 import OtherRoutes from "./OtherRoutes";
 
-
 const AppRoutes: React.FC = () => {
     const { signed } = useContext(AuthContext);
-    console.log(signed)
 
     return signed ? <OtherRoutes /> : <SignRoutes />
-
-
 };
-
 
 export default AppRoutes;
