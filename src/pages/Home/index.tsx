@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Navbar from "../../components/navbar/navbar";
 import AuthContext from "../../contexts/auth";
 
 const Home: React.FC = () => {
@@ -10,6 +11,7 @@ const Home: React.FC = () => {
 
     return (
         <div>
+            <Navbar />
             <h1>Home</h1>
             <button onClick={handleLogout}>LogOut</button>
         </div>
