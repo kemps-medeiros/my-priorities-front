@@ -1,3 +1,12 @@
-.container {
-    max-width: 1280px;
+.box-title {
+    margin-top: 50px;
+}
+
+.title {
+    color: #880e4f;
+    font-weight: 600;
+}
+
+.sub-title {
+    color: #880e4f ;
 }
