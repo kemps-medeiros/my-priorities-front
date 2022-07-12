@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import AuthContext from "../../contexts/auth";
 import "./style.css";
 
 
 const LoginCard: React.FC = () => {
+    const context = useContext(AuthContext);
+
+
+    async function handleLogin() {
+        await context.Login();
+
+    }
 
     return (
         <div>
@@ -15,14 +23,24 @@ const LoginCard: React.FC = () => {
                         <div className="card-content">
                             <div className="form-field">
                                 <label htmlFor="email" >Email</label>
-                                <input type="email" id="email" />
+                                <input
+                                    type="email"
+                                    id="email"
+                                    onChange={event => context.setEmail(event.target.value)} />
                             </div>
                             <div className="form-field">
                                 <label htmlFor="password" >Password</label>
-                                <input type="password" id="password" />
+                                <input
+                                    type="password"
+                                    id="password"
+                                    onChange={event => context.setPassword(event.target.value)} />
                             </div>
                             <div className="form-field center">
-                                <button className="btn-large green accent-4 login">Login</button>
+                                <button
+                                    className="btn-large green accent-4 login"
+                                    onClick={handleLogin}>
+                                    Login
+                                </button>
                             </div>
                         </div>
                     </div>
