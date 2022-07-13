@@ -10,6 +10,7 @@ interface AuthContextData {
     password: string;
     setPassword: (password: string) => void;
     errorRequest: any;
+    token: string | null;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -19,10 +20,11 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState<string | null>(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorRequest, setErrorRequest] = useState(null);
+    const [idUser, setIdUser] = useState('');
 
     async function Login() {
 
@@ -33,11 +35,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
                 email: email,
                 password: password,
             });
-            if (response) {
-                setToken(response.data.access_token);
-                api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            // if (response) {
 
-            }
+            setToken(response.data.access_token);
+            // console.log(token);
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            localStorage.setItem('email', email);
+            // await api.get(`/api/users/findByEmail/${email}`
+            //     , {
+            //         headers:
+            //         {
+            //             'Authorization': `Bearer ${token}`
+            //         }
+            //     }
+            // ).then(response => console.log(response));
+
+
+            // }
         } catch (error: any) {
             setErrorRequest(error)
             console.log(errorRequest)
@@ -46,11 +60,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
 
     async function Logout() {
         try {
+            setErrorRequest(null);
             setToken(null);
+            setEmail('null');
         } catch (error) {
             console.log(error);
         }
     }
+
+    // async function getUserId() {
+    //     await api.get(`/api/users/findByEmail/${email}`
+    //         , { headers: { Authorization: `Bearer ${token}` } }
+    //     ).then(response => console.log(response));
+    // }
 
     return (
         <AuthContext.Provider value={{
@@ -61,7 +83,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
             setEmail,
             password,
             setPassword,
-            errorRequest
+            errorRequest,
+            token
         }}>
             {props.children}
         </AuthContext.Provider>
