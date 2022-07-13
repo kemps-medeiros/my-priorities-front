@@ -19,7 +19,9 @@ const Navbar: React.FC = () => {
                             <li><a href="badges.html">Components</a></li>
                             <li><a href="collapsible.html">Javascript</a></li>
                             <li><a href="mobile.html">Mobile</a></li>
-                        </ul> */}
+                        </ul> 
+                        verificar DOC do Materialize
+                        */}
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li><a target="_blank" rel="noreferrer" href="https://github.com/kemps-medeiros">Github</a></li>
                             <li><a target="_blank" rel="noreferrer" href="https://kemps-medeiros.github.io/kemps-portfolio/">Portfolio</a></li>
