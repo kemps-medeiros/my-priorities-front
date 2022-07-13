@@ -1,15 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import AuthContext from "../../contexts/auth";
+
 import "./style.css";
 
 
 const LoginCard: React.FC = () => {
     const context = useContext(AuthContext);
-
+    let spanError = '';
 
     async function handleLogin() {
         await context.Login();
+    }
 
+    if (context.errorRequest) {
+        spanError = "**The e-mail and password do not match, if you do not have an account, click on register.";
     }
 
     return (
@@ -44,7 +48,13 @@ const LoginCard: React.FC = () => {
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <span className="message-error">
+                            {spanError}
+                        </span>
+                    </div>
                     <div className="center">
+                        {/* Implementar pagina de sign up */}
                         <a href="#" className="btn">
                             Sign Up!
                         </a>
