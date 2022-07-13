@@ -6,3 +6,7 @@
     /* background-color: #1b5e20; */
     background: #2e7d32 !important; 
 }
+
+.message-error {
+    color: red;
+}
