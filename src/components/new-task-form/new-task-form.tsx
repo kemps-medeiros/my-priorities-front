@@ -8,17 +8,6 @@ import "./style.css";
 const NewTaskForm: React.FC = () => {
     const context = useContext(AuthContext);
 
-    useEffect(() => {
-
-        api.get(`/api/users/findByEmail/${context.email}`,
-            { headers: { 'Authorization': `Bearer ${context.token}` } }
-        ).then(response => console.log(response));
-
-    }, [])
-    // function handleAdd() {
-    //     console.log(context.token);
-    // }
-
     return (
         <div>
             <div className="row mt-50">
