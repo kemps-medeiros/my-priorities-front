@@ -68,12 +68,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
         }
     }
 
-    // async function getUserId() {
-    //     await api.get(`/api/users/findByEmail/${email}`
-    //         , { headers: { Authorization: `Bearer ${token}` } }
-    //     ).then(response => console.log(response));
-    // }
-
     return (
         <AuthContext.Provider value={{
             signed: Boolean(token),
