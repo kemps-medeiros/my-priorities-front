@@ -12,7 +12,7 @@ interface FuncProps {
 const NewTaskForm: React.FC<FuncProps> = (props) => {
     const context = useContext(AuthContext);
     const [newDescritpion, setNewDescription] = useState('');
-    const [newPriorityLevel, setNewPriorityLevel] = useState(0);
+    const [newPriorityLevel, setNewPriorityLevel] = useState(50);
 
     async function handleAdd() {
 
@@ -28,13 +28,15 @@ const NewTaskForm: React.FC<FuncProps> = (props) => {
             );
 
             await props.getAllTasks(context.idUser);
+            setNewDescription('')
+            setNewPriorityLevel(50);
+            alert('task registered successfully')
 
         } catch (error) {
             console.log(error)
         }
 
     }
-
 
     return (
         <div>
@@ -50,7 +52,9 @@ const NewTaskForm: React.FC<FuncProps> = (props) => {
                                 <input
                                     type="text"
                                     id="description"
-                                    onChange={event => setNewDescription(event.target.value)}
+                                    value={newDescritpion}
+                                    onChange={event => setNewDescription(event.target.value)
+                                    }
                                 />
                             </div>
                             <div className="form-field">
@@ -60,6 +64,7 @@ const NewTaskForm: React.FC<FuncProps> = (props) => {
                                     min="0"
                                     max="100"
                                     id="priority"
+                                    value={newPriorityLevel}
                                     onChange={event => setNewPriorityLevel(parseInt(event.target.value))}
                                 />
                             </div>
@@ -73,11 +78,8 @@ const NewTaskForm: React.FC<FuncProps> = (props) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div >
     )
 }
