@@ -1,12 +1,40 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AuthContext from "../../contexts/auth";
 import api from "../../services/api";
 
 import "./style.css";
 
+interface FuncProps {
+    getAllTasks: (id: string) => Promise<void>;
+}
 
-const NewTaskForm: React.FC = () => {
+
+const NewTaskForm: React.FC<FuncProps> = (props) => {
     const context = useContext(AuthContext);
+    const [newDescritpion, setNewDescription] = useState('');
+    const [newPriorityLevel, setNewPriorityLevel] = useState(0);
+
+    async function handleAdd() {
+
+        try {
+            const response = await api.post('/api/priorities', {
+
+                description: newDescritpion,
+                prioritie_level: newPriorityLevel,
+                user_id: context.idUser,
+
+            },
+                { headers: { 'Authorization': `Bearer ${context.token}` } }
+            );
+
+            await props.getAllTasks(context.idUser);
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
 
     return (
         <div>
@@ -22,7 +50,7 @@ const NewTaskForm: React.FC = () => {
                                 <input
                                     type="text"
                                     id="description"
-                                // onChange={event => context.setEmail(event.target.value)} 
+                                    onChange={event => setNewDescription(event.target.value)}
                                 />
                             </div>
                             <div className="form-field">
@@ -32,13 +60,13 @@ const NewTaskForm: React.FC = () => {
                                     min="0"
                                     max="100"
                                     id="priority"
-                                // onChange={event => context.setPassword(event.target.value)} 
+                                    onChange={event => setNewPriorityLevel(parseInt(event.target.value))}
                                 />
                             </div>
                             <div className="form-field right-align">
                                 <button
                                     className="btn-large green accent-4 login"
-                                // onClick={handleAdd}
+                                    onClick={handleAdd}
                                 >
                                     Add
                                 </button>
