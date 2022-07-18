@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import DeleteTaskCard from "../../components/delete-task-card/deleted-task.card";
+import EditTaskForm from "../../components/edit-task-form/edit-task.form";
 import Navbar from "../../components/navbar/navbar";
 import NewTaskForm from "../../components/new-task-form/new-task-form";
 import AuthContext from "../../contexts/auth";
@@ -8,10 +10,14 @@ import "./style.css";
 
 const Home: React.FC = () => {
     const context = useContext(AuthContext);
+
     const [tasks, setTasks] = useState<any[]>([]);
     const [isAddingNewTask, setIsAddingNewTask] = useState(false);
     const [isEditingTask, setIsEditingTask] = useState(false);
     const [editedTask, setEditedTask] = useState('');
+
+    const [isDeletingTask, setIsDeletingTask] = useState(false);
+    const [deletedTask, setDeletedTask] = useState('');
 
     async function handleLogout() {
         await context.Logout()
@@ -45,7 +51,7 @@ const Home: React.FC = () => {
     }
 
     function handleButtonAddNewTask() {
-        if (!isAddingNewTask) {
+        if (!isAddingNewTask && !isEditingTask && !isDeletingTask) {
             return (
                 <button
                     className="btn-large blue accent-4 new-task"
@@ -55,17 +61,39 @@ const Home: React.FC = () => {
             )
         }
 
-        return (<button
-            className="btn-large red accent-4 logout"
-            onClick={handleCancelAddNewTask}>
-            Cancel
-        </button>)
+        if (isAddingNewTask && !isEditingTask) {
+            return (<button
+                className="btn-large red accent-4 logout"
+                onClick={handleCancelAddNewTask}>
+                Cancel
+            </button>)
+        }
+
+    }
+
+    function handleButtonEditTask() {
+        if (!isAddingNewTask && isEditingTask) {
+            return (<button
+                className="btn-large red accent-4 logout"
+                onClick={handleCancelEditTask}>
+                Cancel
+            </button>)
+        }
+    }
+
+    function handleCancelEditTask() {
+        setIsEditingTask(false);
     }
 
     function editTask(idEdited: string) {
         setIsEditingTask(true);
         setEditedTask(idEdited);
 
+    }
+
+    function deleteTask(idDeleted: string) {
+        setIsDeletingTask(true);
+        setDeletedTask(idDeleted);
     }
 
     return (
@@ -75,6 +103,7 @@ const Home: React.FC = () => {
                 <div className="row mt-20">
                     <div className="left">
                         {handleButtonAddNewTask()}
+                        {handleButtonEditTask()}
                     </div>
                     <div className="right">
                         <button
@@ -86,7 +115,19 @@ const Home: React.FC = () => {
                 </div>
                 <div className="row">
                     {isAddingNewTask && <NewTaskForm getAllTasks={getTasks} />}
-                    <div>
+                    {isEditingTask &&
+                        <EditTaskForm
+                            getAllTasks={getTasks}
+                            taskId={editedTask}
+                            setIsEditingTask={setIsEditingTask}
+                        />}
+                    {isDeletingTask &&
+                        <DeleteTaskCard
+                            getAllTasks={getTasks}
+                            deletedTaskId={deletedTask}
+                            setIsDeletingTask={setIsDeletingTask}
+                        />}
+                    {!isDeletingTask && !isEditingTask && < div >
                         <div className="center">
                             <h2 className="purple-color">My Tasks</h2>
                         </div>
@@ -109,7 +150,9 @@ const Home: React.FC = () => {
                                                 </div>
                                                 <div className="right">
                                                     <button
-                                                        className="btn-small red accent-4 logout">
+                                                        className="btn-small red accent-4 logout"
+                                                        onClick={() => deleteTask(task.id)}
+                                                    >
                                                         Delete
                                                     </button>
                                                 </div>
@@ -128,6 +171,7 @@ const Home: React.FC = () => {
                             </div>
                         ))}
                     </div>
+                    }
                 </div>
             </div>
         </div >
