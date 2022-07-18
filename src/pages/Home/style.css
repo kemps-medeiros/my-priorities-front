@@ -5,3 +5,24 @@
 .logout:hover {
     background: #e53935  !important;
 }
+
+.new-task:hover {
+    background: #2196f3  !important;
+}
+
+.flex {
+    display: flex !important;
+    /* justify-content: space-between !important; */
+}
+
+.mr-20 {
+    margin-right: 20px !important;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.purple-color {
+    color: #880e4f !important;
+}
