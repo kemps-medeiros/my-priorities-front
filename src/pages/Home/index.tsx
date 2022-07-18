@@ -5,6 +5,7 @@ import AuthContext from "../../contexts/auth";
 import api from "../../services/api";
 import "./style.css";
 
+
 const Home: React.FC = () => {
     const context = useContext(AuthContext);
     const [tasks, setTasks] = useState<any[]>([]);
@@ -19,6 +20,7 @@ const Home: React.FC = () => {
         api.get(`/api/users/findByEmail/${context.email}`,
             { headers: { 'Authorization': `Bearer ${context.token}` } }
         ).then(response => {
+            context.setIdUser(response.data.id);
             getTasks(response.data.id)
         });
 
@@ -78,7 +80,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
                 <div className="row">
-                    {isAddingNewTask && <NewTaskForm />}
+                    {isAddingNewTask && <NewTaskForm getAllTasks={getTasks} />}
                     <div>
                         <div className="center">
                             <h2>My Tasks</h2>
