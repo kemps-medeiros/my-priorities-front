@@ -11,6 +11,8 @@ interface AuthContextData {
     setPassword: (password: string) => void;
     errorRequest: any;
     token: string | null;
+    idUser: string;
+    setIdUser: (idUser: string) => void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -78,7 +80,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
             password,
             setPassword,
             errorRequest,
-            token
+            token,
+            idUser,
+            setIdUser
         }}>
             {props.children}
         </AuthContext.Provider>
