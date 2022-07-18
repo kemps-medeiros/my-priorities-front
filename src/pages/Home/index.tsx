@@ -10,6 +10,8 @@ const Home: React.FC = () => {
     const context = useContext(AuthContext);
     const [tasks, setTasks] = useState<any[]>([]);
     const [isAddingNewTask, setIsAddingNewTask] = useState(false);
+    const [isEditingTask, setIsEditingTask] = useState(false);
+    const [editedTask, setEditedTask] = useState('');
 
     async function handleLogout() {
         await context.Logout()
@@ -46,7 +48,7 @@ const Home: React.FC = () => {
         if (!isAddingNewTask) {
             return (
                 <button
-                    className="btn-large blue accent-4 logout"
+                    className="btn-large blue accent-4 new-task"
                     onClick={handleAddNewTask}>
                     Add New Task!!
                 </button>
@@ -60,18 +62,21 @@ const Home: React.FC = () => {
         </button>)
     }
 
+    function editTask(idEdited: string) {
+        setIsEditingTask(true);
+        setEditedTask(idEdited);
+
+    }
 
     return (
         <div>
             <Navbar />
             <div className="container">
-
                 <div className="row mt-20">
                     <div className="left">
                         {handleButtonAddNewTask()}
                     </div>
                     <div className="right">
-
                         <button
                             className="btn-large red accent-4 logout"
                             onClick={handleLogout}>
@@ -83,17 +88,40 @@ const Home: React.FC = () => {
                     {isAddingNewTask && <NewTaskForm getAllTasks={getTasks} />}
                     <div>
                         <div className="center">
-                            <h2>My Tasks</h2>
+                            <h2 className="purple-color">My Tasks</h2>
                         </div>
                         {tasks.map(task => (
                             <div className="col s12 m12 l6 offset-l3">
                                 <div className="card horizontal">
                                     <div className="card-stacked" id={task.id}>
                                         <div className="card-content center-align">
-                                            <h6>{task.description}</h6>
+                                            <h6 className="bold">{task.description}</h6>
                                         </div>
-                                        <div className="card-action left-align">
-                                            <h6>Priority level: {task.prioritie_level}</h6>
+                                        <div className="row">
+                                            <div className="card-action">
+                                                <div className="left">
+                                                    <h6 className="left">
+                                                        Priority level /
+                                                    </h6>
+                                                    <h6 className="right bold purple-color">
+                                                        {task.prioritie_level}
+                                                    </h6>
+                                                </div>
+                                                <div className="right">
+                                                    <button
+                                                        className="btn-small red accent-4 logout">
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                                <div className="edit mr-20 right">
+                                                    <button
+                                                        className="btn-small"
+                                                        onClick={() => editTask(task.id)}
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -101,9 +129,8 @@ const Home: React.FC = () => {
                         ))}
                     </div>
                 </div>
-
             </div>
-        </div>
+        </div >
     )
 }
 
