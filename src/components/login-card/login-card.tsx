@@ -3,9 +3,13 @@ import AuthContext from "../../contexts/auth";
 
 import "./style.css";
 
+interface ILoginSignUpProps {
+    setIsAddingNewUser: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const LoginCard: React.FC = () => {
+const LoginCard: React.FC<ILoginSignUpProps> = (props) => {
     const context = useContext(AuthContext);
+
     let spanError = '';
 
     async function handleLogin() {
@@ -14,6 +18,10 @@ const LoginCard: React.FC = () => {
 
     if (context.errorRequest) {
         spanError = "**The e-mail and password do not match, if you do not have an account, click on register.";
+    }
+
+    function signUp() {
+        props.setIsAddingNewUser(true);
     }
 
     return (
@@ -55,9 +63,9 @@ const LoginCard: React.FC = () => {
                     </div>
                     <div className="center">
                         {/* Implementar pagina de sign up */}
-                        <a href="#" className="btn">
+                        <button onClick={signUp} className="btn">
                             Sign Up!
-                        </a>
+                        </button>
                     </div>
                 </div>
 

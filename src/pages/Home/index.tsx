@@ -86,6 +86,9 @@ const Home: React.FC = () => {
     }
 
     function editTask(idEdited: string) {
+        if (isAddingNewTask === true) {
+            setIsAddingNewTask(false);
+        }
         setIsEditingTask(true);
         setEditedTask(idEdited);
 
