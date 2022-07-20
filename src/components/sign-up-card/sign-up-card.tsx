@@ -1,5 +1,4 @@
-import { render } from "@testing-library/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import api from "../../services/api";
 
 import "./style.css";
@@ -13,7 +12,7 @@ const SignUpCard: React.FC<ISignUpProps> = (props) => {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessages, setErrorMessages] = useState<any>([]);
+    const [errorMessage, setErrorMessage] = useState([]);
 
     async function handleRegister() {
         try {
@@ -27,7 +26,9 @@ const SignUpCard: React.FC<ISignUpProps> = (props) => {
             props.setIsAddingNewUser(false);
             alert('user registered successfully')
         } catch (error: any) {
-            setErrorMessages(error)
+            setErrorMessage(error.response.data.message)
+
+
         }
     }
 
@@ -92,7 +93,11 @@ const SignUpCard: React.FC<ISignUpProps> = (props) => {
                     </div>
                     <div>
                         <span className="message-error">
-
+                            {errorMessage && errorMessage.map((msg) => (
+                                <div>
+                                    **{msg}
+                                </div>
+                            ))}
                         </span>
                     </div>
                 </div>
