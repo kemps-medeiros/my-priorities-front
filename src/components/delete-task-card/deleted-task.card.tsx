@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import AuthContext from "../../contexts/auth";
 import api from "../../services/api";
 
@@ -42,12 +42,7 @@ const DeleteTaskCard: React.FC<DeleteProps> = (props) => {
                         <div className="card-content center">
                             <div className="form-field">
                                 <h5>Are you sure you want delete this task???</h5>
-                                {/* <input
-                                type=
-                                    // autoFocus
-                                /> */}
                             </div>
-
                             <div className="row">
                                 <button
                                     className="btn-large green accent-4 login"

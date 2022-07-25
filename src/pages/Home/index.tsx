@@ -7,7 +7,6 @@ import AuthContext from "../../contexts/auth";
 import api from "../../services/api";
 import "./style.css";
 
-
 const Home: React.FC = () => {
     const context = useContext(AuthContext);
 
@@ -15,7 +14,6 @@ const Home: React.FC = () => {
     const [isAddingNewTask, setIsAddingNewTask] = useState(false);
     const [isEditingTask, setIsEditingTask] = useState(false);
     const [editedTask, setEditedTask] = useState('');
-
     const [isDeletingTask, setIsDeletingTask] = useState(false);
     const [deletedTask, setDeletedTask] = useState('');
 
@@ -117,7 +115,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
                 <div className="row">
-                    {isAddingNewTask && <NewTaskForm getAllTasks={getTasks} />}
+                    {isAddingNewTask && <NewTaskForm getAllTasks={getTasks} setIsAddingNewTask={setIsAddingNewTask} />}
                     {isEditingTask &&
                         <EditTaskForm
                             getAllTasks={getTasks}

@@ -6,6 +6,7 @@ import "./style.css";
 
 interface FuncProps {
     getAllTasks: (id: string) => Promise<void>;
+    setIsAddingNewTask: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
@@ -30,6 +31,7 @@ const NewTaskForm: React.FC<FuncProps> = (props) => {
             await props.getAllTasks(context.idUser);
             setNewDescription('')
             setNewPriorityLevel(50);
+            props.setIsAddingNewTask(false);
             alert('task registered successfully')
 
         } catch (error) {
@@ -69,6 +71,9 @@ const NewTaskForm: React.FC<FuncProps> = (props) => {
                                 />
                             </div>
                             <div className="form-field right-align">
+                                <div className="left">
+                                    <h6 className="level">Level: {newPriorityLevel}</h6>
+                                </div>
                                 <button
                                     className="btn-large green accent-4 login"
                                     onClick={handleAdd}

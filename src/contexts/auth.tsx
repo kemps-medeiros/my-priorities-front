@@ -32,28 +32,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
 
         try {
             const response = await api.post('/auth/login', {
-                // email: 'neymar@gmail.com',
-                // password: 'Neymar@1234',
                 email: email,
                 password: password,
             });
-            // if (response) {
-
             setToken(response.data.access_token);
-            // console.log(token);
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             localStorage.setItem('email', email);
-            // await api.get(`/api/users/findByEmail/${email}`
-            //     , {
-            //         headers:
-            //         {
-            //             'Authorization': `Bearer ${token}`
-            //         }
-            //     }
-            // ).then(response => console.log(response));
-
-
-            // }
         } catch (error: any) {
             setErrorRequest(error)
             console.log(errorRequest)

@@ -10,7 +10,6 @@ interface EditProps {
     setIsEditingTask: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
 const EditTaskForm: React.FC<EditProps> = (props) => {
     const context = useContext(AuthContext);
 
@@ -22,7 +21,6 @@ const EditTaskForm: React.FC<EditProps> = (props) => {
         api.get(`/api/priorities/${props.taskId}`,
             { headers: { 'Authorization': `Bearer ${context.token}` } }
         ).then(response => {
-            console.log(response)
             setNewEditedDescription(response.data.description);
             setNewEditedPriorityLevel(response.data.prioritie_level)
         });
@@ -37,19 +35,15 @@ const EditTaskForm: React.FC<EditProps> = (props) => {
                 description: newEditedDescritpion,
                 prioritie_level: newEditedPriorityLevel,
 
-
             },
                 { headers: { 'Authorization': `Bearer ${context.token}` } }
             );
-
             await props.getAllTasks(context.idUser);
             props.setIsEditingTask(false);
             alert('task updated successfully');
-
         } catch (error) {
             console.log(error)
         }
-
     }
 
     return (
@@ -84,6 +78,9 @@ const EditTaskForm: React.FC<EditProps> = (props) => {
                                 />
                             </div>
                             <div className="form-field right-align">
+                                <div className="left">
+                                    <h6 className="level">Level: {newEditedPriorityLevel}</h6>
+                                </div>
                                 <button
                                     className="btn-large green accent-4 login"
                                     onClick={handleEdit}

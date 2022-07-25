@@ -28,7 +28,6 @@ const SignUpCard: React.FC<ISignUpProps> = (props) => {
         } catch (error: any) {
             setErrorMessage(error.response.data.message)
 
-
         }
     }
 
